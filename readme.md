@@ -9,6 +9,7 @@ Folder Structure:
 Please pull frontend and backend code:
 
 Frontend server runs on http://localhost:3000/
+
 Backend server runs on http://localhost:9000/
 
 Run the application using : docker-compose up
