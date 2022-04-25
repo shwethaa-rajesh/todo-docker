@@ -1,0 +1,34 @@
+# docker-compose.yml
+version: "3"
+services:
+  todo-backend:
+    build: ../todo-backend/
+    container_name: todo-backend
+    user: root
+    entrypoint: /app/entrypoint.sh
+    environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: tododb
+      DB_NAME: todo-app
+    depends_on:
+      - tododb
+    ports:
+      - "9000:9000"
+  todo-frontend:
+    build: ../todo-frontend/
+    container_name: todo-frontend
+    entrypoint: /app/entrypoint.sh
+    depends_on:
+      - todo-backend
+    ports:
+      - "3000:3000"
+  tododb:
+    image: postgres
+    volumes: 
+      - ./postgrestodo/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo-app
+      
